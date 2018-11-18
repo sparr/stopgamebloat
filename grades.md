@@ -21,3 +21,5 @@ This site uses a grading system for instances and types of file bloat, as follow
   - wasting 99-100% of space
   - entirely unused content
   - large files full of null bytes
+
+Grades for whole games/apps are a sort of weighted average of the problematic grades of the various individual instances of bloat they contain.

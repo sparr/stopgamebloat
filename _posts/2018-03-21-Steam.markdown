@@ -1,0 +1,38 @@
+---
+layout: game
+title:  "Steam"
+date:   2018-03-21 12:00:00 -0800
+categories: app
+downloadsize: 202MB
+installsize: 757MB
+bloatsize: 120MB
+grade: D
+gameversion: OSX
+---
+TL;DR: Valve could save the world about **seven petabytes** of storage just by deduplicating the contents of their localization/translation files, and it gets worse from there.
+
+Modern games are bloated, taking up more bandwidth and disk space than they need. This was a moderate problem 5-10 years ago, but it has gotten completely out of control since then. As I was making a short list of games I've recently considered installing but skipped due to their size (4GB for a top-down low-poly low-texture platformer? 30GB for a RTS? 83GB for a MMORPG?) I found myself installing a 117MB update for Steam itself. In the software-bloat mindset, this prompted an immediate "wait, what?", leading to the writing of the original version of this post. I posted that version to social media, and eventually reworked it to start this site.
+
+The single most egregious source of disk file bloat with Steam are the textual translations files that provide non-English text for the UI. Don't get me wrong, localizations are great! I'm definitely not saying they shouldn't be there, or that they should be less thorough. However, Steam does a really bad job of storing them, with absolutely massive amounts of duplication across files. "[english]" appears **hundreds of thousands of times**. Descriptive labels like "SteamBootstrapper_InsufficientDiskSpace" appear 51 times, 2 more for every new language added. The literal English strings to be translated appear once per language, strings such as...
+> Intended to be used with a dual-stage trigger setup, Hip Fire allows a quick pull of the trigger to engage the click without engaging the threshold.  A slower pull or hover will engage the threshold action.  This allows for actions such as iron-sights to be set on the threshold and fire on the click, while still allowing a quick pull to click to fire without entering iron-sights.  Additionally, once the click has been hit, the threshold won't be engaged until the trigger has been released outside of the threshold range, allowing it to be primed for additional clicks.  Relaxed Hip Fire mode is a larger window before engaging the threshold, allowing a slower pull of the trigger to avoid it.  This means the Threshold action will be slightly less responsive when intentionally trying to engage.
+
+Yes, that whole thing is stored 26 identical times, along with every other message like it. To top it all off, everything I just mentioned is stored in utf-16le, taking up 2 bytes for character for all that duplicated english text. All told, these translations only take up about 67MB of disk space, but even a super fast compressor can cut that by 90%. Fortunately they are well compressed during the download, so this is only a disk space problem, not a download/bandwidth problem. Valve reports 125 million lifetime users, which means somewhere out there in the world something like 7.5PB (a petabyte is one thousand terabytes) of hard drive space are being wasted on this "small" issue alone.
+
+Additional issues are mostly media being stored in poorly chosen formats, pointed out below.
+
+Breakdown of problematic installed app contents:
+- tenfoot - 137MB "Big Picture" interface files
+  - images - <span class="grade_D">63MB</span>
+    - <span class="grade_D">TGA that should be PNG</span>
+    - <span class="grade_D">PNG that should be JPEG</span>
+    - <span class="grade_D">PNG that should be SVG</span>
+  - localization - <span class="grade_D">31MB with data duplication problems described above</span>
+  - sounds - <span class="grade_C">11MB of MP3 and WAV audio</span>
+- public - <span class="grade_D">36MB more heavily duplicated translations</span>
+- graphics - <span class="grade_D">20MB of TGA that should be PNG or procedurally generated</span>
+  - music_details_mask.tga - <span class="grade_D">4.2MB for a checkerboard on top of a gradient</span>
+  - clienttexture\*.tga - <span class="grade_D">3.1MB of smooth gradients</span>
+- many more instances of the above problems in smaller directories
+- Chromium Embedded Framework - 147MB, Apple/Microsoft's fault for bad versioned shared library support
+
+Having gotten this far, my original "wait, what?" actually still remains unanswered. Almost everything I've just described seems mostly static, images and sounds and text files and third party libraries. The binaries and first party libraries are actually pretty small. I can't point to 117MB worth of content that I expect to have changed in the update that prompted the writing of this post, let alone the ~300MB that I would expect from the compression ratio evident in the original client download. http://store.steampowered.com/news/38412/ has the changelog, where I see a lot of what should be code/library/driver changes, none of which touches on all the pieces of the client that seem to take up tens to hundreds of MB of space each. For now, this is as far as I'll get with Steam. I might revisit it during a future update, if I start reviewing bloatedness in patches/updates separately. For now, I'll be starting to review the contents of other games and apps.
