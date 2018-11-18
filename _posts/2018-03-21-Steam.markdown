@@ -9,7 +9,7 @@ bloatsize: 120MB
 grade: D
 gameversion: OSX
 ---
-TL;DR: Valve could save the world about **seven petabytes** of storage just by deduplicating the contents of their localization/translation files, and it gets worse from there.
+TL;DR: Valve could save the world about **seven petabytes** of storage just by compressing and/or deduplicating the contents of their localization/translation files, and it gets worse from there.
 
 Modern games are bloated, taking up more bandwidth and disk space than they need. This was a moderate problem 5-10 years ago, but it has gotten completely out of control since then. As I was making a short list of games I've recently considered installing but skipped due to their size (4GB for a top-down low-poly low-texture platformer? 30GB for a RTS? 83GB for a MMORPG?) I found myself installing a 117MB update for Steam itself. In the software-bloat mindset, this prompted an immediate "wait, what?", leading to the writing of the original version of this post. I posted that version to social media, and eventually reworked it to start this site.
 
