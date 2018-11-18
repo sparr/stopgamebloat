@@ -1,0 +1,15 @@
+---
+layout: post
+---
+<div id="sizes">
+  <div class="size"><span class="label">Download Size: </span><span id="downloadsize" />{{ page.downloadsize }}</span></div>
+  <div class="size"><span class="label">Install Size: </span><span id="installsize" />{{ page.installsize }}</span></div>
+  <div class="size"><span class="label">Bloat Size: </span><span id="bloatsize" />{{ page.bloatsize }}</span></div>
+</div>
+<div id="grade">
+  <span class="label">Bloat Grade: </span><span id="grade" class="grade_{{ page.grade }}">{{ page.grade }}</span></span>
+</div>
+<div class="content">
+  {{ content }}
+</div>
+<div id="gameversion">The above information is based on the {{ page.gameversion }} version of {{ page.title }}</div>
